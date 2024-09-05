@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/xadichamahkamova/config-helper/config"
+	"github.com/xadichamahkamova/config-helper/function"
 )
 
 type Config struct {
@@ -16,7 +16,7 @@ type Config struct {
 func TestLoadJSONConfig(t *testing.T) {
 	expectedConfig := Config{AppName: "TestApp", Port: 8080}
 
-	err := config.LoadJSONConfig("testdata/config.json", &expectedConfig)
+	err := function.LoadJSONConfig("../testdata/config.json", &expectedConfig)
 	assert.NoError(t, err)
 	assert.Equal(t, "TestApp", expectedConfig.AppName)
 	assert.Equal(t, 8080, expectedConfig.Port)
@@ -25,14 +25,14 @@ func TestLoadJSONConfig(t *testing.T) {
 func TestLoadYAMLConfig(t *testing.T) {
 	expectedConfig := Config{AppName: "TestApp", Port: 8080}
 
-	err := config.LoadYAMLConfig("testdata/config.yaml", &expectedConfig)
+	err := function.LoadYAMLConfig("../testdata/config.yaml", &expectedConfig)
 	assert.NoError(t, err)
 	assert.Equal(t, "TestApp", expectedConfig.AppName)
 	assert.Equal(t, 8080, expectedConfig.Port)
 }
 
 func TestLoadENVConfig(t *testing.T) {
-	err := config.LoadENVConfig("testdata/.env")
+	err := function.LoadENVConfig("../testdata/.env")
 	assert.NoError(t, err)
 
 	assert.Equal(t, "TestApp", os.Getenv("APP_NAME"))
